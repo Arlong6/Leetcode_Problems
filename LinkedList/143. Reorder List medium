@@ -1,0 +1,62 @@
+To achieve the reordering, you should:
+
+1. **Find the middle** of the linked list.
+2. **Reverse the second half** of the list.
+3. **Merge** the two halves, alternating nodes from each half to form the desired reordered list.
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        //節點數如果<兩個 就不會動作
+        if (!head || !head->next || !head->next->next) return;
+
+        //找中位數，slow走一步 fast走兩步 fast到終點的時候，slow走到一半
+        ListNode *slow =head;
+        ListNode *fast =head;
+
+        while(fast&&fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+				
+				//讓slow斷再這 改由新的second取代
+        ListNode *second = slow->next;
+        slow->next = nullptr;
+        ListNode *prev = nullptr;
+				
+				//這邊把second的部分作反轉
+        while(second){
+            ListNode *next = second->next;
+            second->next = prev;
+            prev = second;
+            second = next;
+        }
+        second = prev;
+        
+        //創一個新的first歷遍所有
+        ListNode *first = head;
+       
+	      //這邊重新組建一個新的linkedlist順序 先接first 然後再接second
+        while(second){
+            ListNode * tmp1 = first->next;
+            ListNode * tmp2 = second->next;
+
+            first -> next = second;
+            second->next = tmp1;
+            first  = tmp1;
+            second = tmp2;
+
+        }
+
+    }
+};
