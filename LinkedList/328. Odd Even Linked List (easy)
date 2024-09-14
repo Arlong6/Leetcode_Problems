@@ -1,0 +1,34 @@
+**問題：給定一個單鏈表，將所有奇數位置的節點和偶數位置的節點分別組合⁠[1](https://www.notion.so/328-Odd-Even-Linked-List-easy-6153fabf417b4bd5a03b282a0c5895e0?pvs=21)⁠​**
+
+**使用兩個指針：odd 指向奇數位置節點，even 指向偶數位置節點⁠[1](https://www.notion.so/328-Odd-Even-Linked-List-easy-6153fabf417b4bd5a03b282a0c5895e0?pvs=21)⁠​**
+
+**保存偶數鏈表的頭節點 evenHead，用於最後連接⁠[1](https://www.notion.so/328-Odd-Even-Linked-List-easy-6153fabf417b4bd5a03b282a0c5895e0?pvs=21)⁠​**
+
+**遍歷鏈表，分別連接奇數節點和偶數節點⁠[1](https://www.notion.so/328-Odd-Even-Linked-List-easy-6153fabf417b4bd5a03b282a0c5895e0?pvs=21)⁠​**
+
+**最後將奇數鏈表的尾部與偶數鏈表的頭部相連⁠[1](https://www.notion.so/328-Odd-Even-Linked-List-easy-6153fabf417b4bd5a03b282a0c5895e0?pvs=21)⁠​**
+
+**時間複雜度為 O(n)，空間複雜度為 O(1)⁠[1](https://www.notion.so/328-Odd-Even-Linked-List-easy-6153fabf417b4bd5a03b282a0c5895e0?pvs=21)**
+
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (!head || !head->next) return head; // 如果链表为空或只有一个节点
+
+        ListNode *odd = head;                  // 奇数链表的头
+        ListNode *even = head->next;           // 偶数链表的头
+        ListNode *evenHead = even;             // 保存偶数链表的头，用于最后连接
+
+        while (even && even->next) {
+            odd->next = even->next;           // 连接下一个奇数节点
+            odd = odd->next;                  // 移动到下一个奇数节点
+            
+            even->next = odd->next;           // 连接下一个偶数节点
+            even = even->next;                // 移动到下一个偶数节点
+        }
+
+        odd->next = evenHead;                 // 连接奇数链表和偶数链表
+        return head;
+    }
+};
