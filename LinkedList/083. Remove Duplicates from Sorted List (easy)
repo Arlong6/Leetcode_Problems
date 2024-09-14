@@ -1,0 +1,46 @@
+**Problem: Remove duplicates from a sorted singly-linked list⁠[1](https://www.notion.so/083-Remove-Duplicates-from-Sorted-List-easy-44762e2afcdc486aa77f29f93da7673a?pvs=21)⁠​**
+
+**Input: Head of a sorted linked list⁠[1](https://www.notion.so/083-Remove-Duplicates-from-Sorted-List-easy-44762e2afcdc486aa77f29f93da7673a?pvs=21)⁠​**
+
+**Output: Modified list with duplicates removed⁠[1](https://www.notion.so/083-Remove-Duplicates-from-Sorted-List-easy-44762e2afcdc486aa77f29f93da7673a?pvs=21)⁠​**
+
+**Approach: Iterate through the list, comparing current node with next node⁠[1](https://www.notion.so/083-Remove-Duplicates-from-Sorted-List-easy-44762e2afcdc486aa77f29f93da7673a?pvs=21)⁠​**
+
+**If duplicate found, skip the next node and delete it⁠[1](https://www.notion.so/083-Remove-Duplicates-from-Sorted-List-easy-44762e2afcdc486aa77f29f93da7673a?pvs=21)⁠​**
+
+**If not duplicate, move to the next node⁠[1](https://www.notion.so/083-Remove-Duplicates-from-Sorted-List-easy-44762e2afcdc486aa77f29f93da7673a?pvs=21)⁠​**
+
+**Time Complexity: O(n), where n is the number of nodes⁠[1](https://www.notion.so/083-Remove-Duplicates-from-Sorted-List-easy-44762e2afcdc486aa77f29f93da7673a?pvs=21)⁠​**
+
+**Space Complexity: O(1), as it modifies the list in-place⁠[1](https://www.notion.so/083-Remove-Duplicates-from-Sorted-List-easy-44762e2afcdc486aa77f29f93da7673a?pvs=21)⁠**
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        
+        ListNode *current = head;
+        while(current && current-> next){
+            if (current->val == current->next->val){
+                ListNode *tmp = current -> next;
+                current-> next = current->next->next;
+                delete tmp;
+            }
+            else{
+            current = current ->next;
+            }
+        }
+
+        return head;
+    }
+};
