@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
+        int Max = *max_element(candies.begin(), candies.end()); // 使用標準函式找最大值
+        int length = candies.size();
+        vector<bool> outputs(length); // 預先分配空間
+        
+        // 單次迴圈來檢查每個孩子能否擁有最多糖果
+        for (int i = 0; i < length; i++) {
+            outputs[i] = (candies[i] + extraCandies >= Max); // 直接比較，簡化條件判斷
+        }
+
+        return outputs;
+    }
+};
