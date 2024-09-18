@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int largestAltitude(vector<int>& gain) {
+        int output = 0;
+        int highestPoint = -200;
+    
+        for (int i = 0 ; i<gain.size();i++){
+            output += gain[i];
+            std::cout<<output<<std::endl;
+            if (output>highestPoint){
+                highestPoint = output;
+       
+            }
+        }
+        if (highestPoint<0){
+            return 0 ;
+        }
+        return highestPoint;
+    }
+};
