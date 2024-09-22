@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int maxReach = 0;  // 最大可達範圍
+        int length = nums.size();
+        
+        for (int i = 0; i < length; ++i) {
+            // 如果當前索引超出了能到達的最大範圍，返回 false
+            if (i > maxReach) return false;
+            // 更新最大可達範圍
+            maxReach = std::max(maxReach, i + nums[i]);
+            // 如果最大可達範圍超過或等於最後一個索引，返回 true
+            if (maxReach >= length - 1) return true;
+        }
+
+        return false;
+    }
+};
