@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int mySqrt(int x) {
+        if (x == 0 || x == 1) return x;
+
+        double temp = x / 2.0; // Use double for more accurate division
+        while (true) {
+            double a = temp;
+            temp = (a + x / a) / 2; // Use a instead of temp to calculate the next approximation
+            if (abs(a - temp) < 0.001) { // Use abs() for accurate comparison
+                return int(temp);
+            }
+        }
+    }
+};
