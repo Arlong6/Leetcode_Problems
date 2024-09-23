@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int arrayPairSum(vector<int>& nums) {
+        
+        int length = nums.size();
+        std::sort(nums.begin(), nums.end());
+        int MaxSum = 0;
+        for (int i = 0; i<length;i+=2){
+            MaxSum += std::min(nums[i],nums[i+1]);
+
+        }
+        return MaxSum;
+    }
+}
+};
