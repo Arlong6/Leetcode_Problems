@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int rangeBitwiseAnd(int left, int right) {
+        while (left < right) {
+            // 將 right 右移一位，去掉最低位的 0
+            right &= (right - 1);
+        }
+        return right; // 返回結果
+    }
+};
