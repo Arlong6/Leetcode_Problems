@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c){ return std::tolower(c); });
+        std::string filtered;
+        for (char c : s) {
+            if (std::isalnum(c)) {
+                filtered += c;
+            }
+        }
+        int left = 0;
+        int right = filtered.size()-1;
+        // std::cout<<filtered<<std::endl;
+
+        while(left<right){
+            // std::cout<<filtered[left]<<"  "<<filtered[right]<<std::endl;
+            if (filtered[left]!=filtered[right]){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+
+
+
+    }
+};
