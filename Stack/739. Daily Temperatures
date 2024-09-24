@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        
+        int length = temperatures.size();
+        vector<int> result(length, 0);
+        stack<int> s; //single stack
+
+        for (int i =0 ; i<length ; i++){
+            while(!s.empty() && temperatures[i]>temperatures[s.top()]){
+                int idx = s.top();
+                s.pop();
+                result[idx] = i - idx;
+            }
+        
+        s.push(i);
+        }
+    return result;
+    }
+void printStack(std::stack<int> s) { // 傳遞棧的副本，保持原棧不變
+    while (!s.empty()) {
+        std::cout << s.top() << " "; // 打印棧頂元素
+        s.pop(); // 移除棧頂元素
+    }
+    std::cout << std::endl; // 換行
+}
+
+};
