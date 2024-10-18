@@ -1,0 +1,32 @@
+int maximumSwap(int num) {
+    char numStr[10];
+    sprintf(numStr, "%d", num);
+    int len = strlen(numStr);
+
+    // 記錄每個數字最後出現的index
+    int last[10] = {0};
+    for (int i =0 ;i<len;i++){
+        last[numStr[i]-'0']=i;
+    }
+
+    // 遍历数字，找出可以交换的最大情况
+    for (int i = 0; i < len; i++) {
+        // 从9到numStr[i]的数字，看看是否有可以交换的
+        for (int d = 9; d > numStr[i] - '0'; d--) {
+            if (last[d] > i) {
+                // 交换numStr[i]和numStr[last[d]]
+                char temp = numStr[i];
+                numStr[i] = numStr[last[d]];
+                numStr[last[d]] = temp;
+                
+                // 转换回整数并返回
+                return atoi(numStr);
+            }
+        }
+    }
+
+    // 如果没有找到可以交换的情况，则返回原数字
+    return num;
+
+
+}
