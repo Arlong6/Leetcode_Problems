@@ -1,0 +1,34 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* insertionSortList(struct ListNode* head) {
+    if (!head||!head->next) return head;
+    struct ListNode* curr = head;
+    struct ListNode* sorted = NULL;
+
+    while (curr){
+        struct ListNode * next = curr->next; //保留下一個節點
+        //在 sorted 列表中找到插入位置
+        if (!sorted || sorted->val >= curr->val){
+            // 插入到以排序的頭部
+            curr->next = sorted;
+            sorted = curr;
+        }
+        else{
+            //在排序的列比找到插入點
+            struct ListNode* temp = sorted;
+            while (temp->next && temp->next->val < curr->val){
+                temp = temp->next;
+            }
+            curr->next = temp->next;
+            temp->next = curr;
+        }
+        // 移動到下一個為排序的節點
+        curr = next;
+    }
+    return sorted;
+}
