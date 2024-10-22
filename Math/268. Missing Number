@@ -1,0 +1,21 @@
+int findDuplicate(int* nums, int numsSize) {
+    // 初始化快慢指針
+    int slow = nums[0];
+    int fast = nums[0];
+
+    // 首先找到環中的相遇點
+    do {
+        slow = nums[slow];            // slow每次前進一格
+        fast = nums[nums[fast]];      // fast每次前進兩格
+        
+    } while (slow != fast);
+
+    // 然後重置其中一個指針，並找到入口點（即重複的數字）
+    slow = nums[0];
+    while (slow != fast) {
+        slow = nums[slow];
+        fast = nums[fast];
+    }
+
+    return slow;
+}
