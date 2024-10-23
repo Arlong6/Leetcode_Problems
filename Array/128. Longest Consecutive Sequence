@@ -1,0 +1,35 @@
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+int longestConsecutive(int *nums, int numsSize) {
+    if (numsSize == 0) return 0;
+
+    // 將數組排序
+    qsort(nums, numsSize, sizeof(int), compare);
+
+    // 初始化序列長度
+    int seq = 1;
+    int maxSeq = 1;
+
+    for (int i = 0; i < numsSize - 1; i++) {
+        if (nums[i] + 1 == nums[i + 1]) {
+            // 如果當前元素和下一個元素連續，增加當前序列長度
+            seq++;
+        } else if (nums[i] != nums[i + 1]) {
+            // 如果當前元素和下一個元素不相等，重置序列長度
+            if (seq > maxSeq) {
+                maxSeq = seq; // 更新最長序列
+            }
+            seq = 1; // 重置為 1
+        }
+    }
+
+    // 最後一次比較，避免在循環結束時丟失最長序列
+    if (seq > maxSeq) {
+        maxSeq = seq;
+    }
+
+    return maxSeq;
+}
