@@ -1,0 +1,34 @@
+bool isPalidrome (char* s){
+    int stringLen = strlen(s);
+    for (int i=0 ;i<stringLen/2;i++){
+        if (s[i]!=s[stringLen-i+1]) return false;
+    }
+    return true;
+}
+bool isPalidromeRange(char*s, int l, int r){
+    while(l<r){
+        if (s[l]!=s[r]) return false;
+        l++;
+        r--;
+    }
+    return true;
+}
+
+char* longestPalindrome(char* s) {
+    int stringLen = strlen(s);
+    char* best = "";  // Initialize best as an empty string
+    int bestLen = 0;  // To keep track of the length of the best palindrome
+
+    for (int i = 0; i < stringLen; i++) {
+        for (int j = i; j < stringLen; j++) {
+            if (j - i + 1 > bestLen && isPalidromeRange(s, i, j)) {
+                bestLen = j - i + 1;  // Update best length
+                // Allocate memory for the new best substring
+                best = (char*)malloc((bestLen + 1) * sizeof(char));
+                strncpy(best, s + i, bestLen);  // Copy substring
+                best[bestLen] = '\0';  // Null-terminate the string
+            }
+        }
+    }
+    return best;  // Return the longest palindrome found
+}
