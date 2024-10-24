@@ -16,19 +16,57 @@ bool isPalidromeRange(char*s, int l, int r){
 
 char* longestPalindrome(char* s) {
     int stringLen = strlen(s);
-    char* best = "";  // Initialize best as an empty string
-    int bestLen = 0;  // To keep track of the length of the best palindrome
-
-    for (int i = 0; i < stringLen; i++) {
-        for (int j = i; j < stringLen; j++) {
-            if (j - i + 1 > bestLen && isPalidromeRange(s, i, j)) {
-                bestLen = j - i + 1;  // Update best length
-                // Allocate memory for the new best substring
-                best = (char*)malloc((bestLen + 1) * sizeof(char));
-                strncpy(best, s + i, bestLen);  // Copy substring
-                best[bestLen] = '\0';  // Null-terminate the string
+    if (stringLen==0) return "";
+    int start =0; 
+    int maxLen=1;
+    // odd strings
+    for (int i = 0; i<stringLen; i++){
+        int left = i, right= i;
+        while (left>=0 && right - stringLen && s[left]==s[right]){
+            if (right-left+1>maxLen){
+                start = left;
+                maxLen = right-left+1;
             }
+            left--;
+            right++;
         }
+
+        //even strings
+        left = i, right = i+1;
+        while(left>=0 && right<stringLen && s[left] == s[right]){
+            if (right-left+1>maxLen){
+                start = left;
+                maxLen = right- left +1;
+            }
+            left--;
+            right++;
+        }
+
     }
-    return best;  // Return the longest palindrome found
+
+    char *result = (char*)malloc((maxLen+1)*sizeof(char));
+    strncpy(result, s+start, maxLen);
+    result[maxLen] = '\0';
+    return result;
+
+
+
+
+
+
+    // char* best = "";  // Initialize best as an empty string
+    // int bestLen = 0;  // To keep track of the length of the best palindrome
+
+    // for (int i = 0; i < stringLen; i++) {
+    //     for (int j = i; j < stringLen; j++) {
+    //         if (j - i + 1 > bestLen && isPalidromeRange(s, i, j)) {
+    //             bestLen = j - i + 1;  // Update best length
+    //             // Allocate memory for the new best substring
+    //             best = (char*)malloc((bestLen + 1) * sizeof(char));
+    //             strncpy(best, s + i, bestLen);  // Copy substring
+    //             best[bestLen] = '\0';  // Null-terminate the string
+    //         }
+    //     }
+    // }
+    // return best;  // Return the longest palindrome found
 }
