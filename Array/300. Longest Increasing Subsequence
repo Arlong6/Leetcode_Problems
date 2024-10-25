@@ -1,0 +1,56 @@
+int max(int a, int b){
+    return a>b? a:b;
+}
+
+int binarySearch( int * tail, int size, int target){
+    int left=0; 
+    int right = size;
+    while(left<right){
+        int mid = left + (right-left)/2;
+        if (tail[mid]>=target){
+            right = mid;
+        }
+        else{
+            left = mid+1;
+        }
+    }
+    return left;
+}
+
+int lengthOfLIS(int* nums, int numsSize) {
+    if (numsSize==0) return 0;
+
+    int *tail = (int*)malloc(numsSize*sizeof(int));
+    int length = 0;
+
+    for (int i =0 ; i<numsSize;i++){
+        int num = nums[i];
+        int idx = binarySearch(tail, length, num);
+
+        if (idx == length){
+            tail[length] = num;
+            length ++;
+        }
+        else{
+            tail[idx] = num;
+        }
+    }
+
+    free(tail);
+    return length;
+    // if  (numsSize==0) return 0;
+    // int dp[numsSize];
+    // dp[0] = 1;
+    // int maxans = 1;
+    // for (int i =0; i<numsSize;i++){
+    //     int maxval = 0;
+    //     for (int j =0; j<i;j++){
+    //         if (nums[i]>nums[j]){
+    //         maxval = max(maxval, dp[j]);
+    //         }
+    //     }
+    //     dp[i] = maxval+1;
+    //     maxans = max(maxans, dp[i]);
+    // }
+    // return maxans;
+}
