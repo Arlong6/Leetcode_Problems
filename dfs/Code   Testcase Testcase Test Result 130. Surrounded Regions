@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+void dfs(char** board, int i, int j, int boardSize, int *boardColSize) {
+    if (i < 0 || i >= boardSize || j < 0 || j >= boardColSize[i] || board[i][j] != 'O') {
+        return;
+    }
+
+    // 標記邊界相連的 'O' 為 '#'
+    board[i][j] = '#';
+
+    // 遞迴處理四個相鄰的方向
+    dfs(board, i - 1, j, boardSize, boardColSize);
+    dfs(board, i + 1, j, boardSize, boardColSize);
+    dfs(board, i, j - 1, boardSize, boardColSize);
+    dfs(board, i, j + 1, boardSize, boardColSize);
+}
+
+void solve(char** board, int boardSize, int* boardColSize) {
+    // 標記邊界的 'O' 及其相連的 'O'
+    for (int i = 0; i < boardSize; i++) {
+        for (int j = 0; j < boardColSize[i]; j++) {
+            if ((i == 0 || i == boardSize - 1 || j == 0 || j == boardColSize[i] - 1) && board[i][j] == 'O') {
+                dfs(board, i, j, boardSize, boardColSize);
+            }
+        }
+    }
+
+    // 將內部的 'O' 改為 'X'
+    for (int i = 0; i < boardSize; i++) {
+        for (int j = 0; j < boardColSize[i]; j++) {
+            if (board[i][j] == 'O') {
+                board[i][j] = 'X';
+            }
+        }
+    }
+
+    // 將 '#' 還原為 'O'
+    for (int i = 0; i < boardSize; i++) {
+        for (int j = 0; j < boardColSize[i]; j++) {
+            if (board[i][j] == '#') {
+                board[i][j] = 'O';
+            }
+        }
+    }
+}
